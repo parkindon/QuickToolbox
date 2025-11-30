@@ -1,0 +1,114 @@
+﻿/* ----------------------------
+   TIME ZONE MEETING FINDER
+   ---------------------------- */
+
+.tz-city-picker {
+    position: relative;
+}
+
+.tz-city-suggestions {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 20;
+    max-height: 180px;
+    overflow-y: auto;
+    border: 1px solid var(--border-colour);
+    border-top: none;
+    background: var(--bg-card);
+    display: none;
+}
+
+.tz-suggestions-visible {
+    display: block;
+}
+
+.tz-suggestion-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.35rem 0.5rem;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.tz-suggestion-item:hover,
+.tz-suggestion-item:focus {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .tz-suggestion-item:hover,
+[data-theme="dark"] .tz-suggestion-item:focus {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.tz-city-tzlabel {
+    margin-top: 0.2rem;
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+/* Status chips */
+
+.tz-status-cell {
+    font-size: 0.85rem;
+}
+
+.tz-status-ok {
+    font-weight: 600;
+}
+
+.tz-status-early,
+.tz-status-late {
+    opacity: 0.9;
+}
+
+.tz-status-bad {
+    font-weight: 600;
+}
+
+.tz-hours-range {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.tz-hours-input {
+    max-width: 6rem;
+}
+
+.tz-hours-separator {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+.tz-status-social {
+    opacity: 0.9;
+}
+
+
+/* Mobile tweaks */
+@media (max-width: 768px) {
+    #tz-participants-table thead {
+        display: none;
+    }
+
+    #tz-participants-table tbody tr {
+        display: block;
+        margin-bottom: 0.75rem;
+        border-bottom: 1px solid var(--border-colour);
+        padding-bottom: 0.5rem;
+    }
+
+    #tz-participants-table tbody td {
+        display: block;
+        padding: 0.15rem 0;
+    }
+
+    #tz-participants-table tbody td:last-child {
+        margin-top: 0.25rem;
+    }
+}
+

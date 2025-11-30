@@ -1,0 +1,132 @@
+﻿@page
+@model QuickToolbox.Pages.Tools.TimeZoneMeetingFinderModel
+@{
+    ViewData["Title"] = "Time Zone Meeting Finder";
+}
+
+<section class="tool-page">
+    <header class="tool-header">
+        <h2>Time Zone Meeting Finder</h2>
+        <p>
+            Pick a meeting time and see what it is locally for people in different cities around the world.
+            Daylight saving and time zone rules are handled automatically.
+        </p>
+    </header>
+
+    <div class="tool-layout responsive-stack">
+        <!-- LEFT: MEETING SETTINGS -->
+        <div class="tool-section tool-input">
+            <h3 class="tool-section-title">Meeting time</h3>
+
+            <div class="form-row">
+                <label class="form-label" for="tz-date">Date</label>
+                <input class="form-input" id="tz-date" type="date" />
+            </div>
+
+            <div class="form-row">
+                <label class="form-label" for="tz-time">Time</label>
+                <input class="form-input" id="tz-time" type="time" step="900" />
+            </div>
+
+            <div class="form-row">
+                <label class="form-label" for="tz-base-city-input">
+                    Base location (where the meeting time is defined)
+                </label>
+
+                <div class="tz-city-picker">
+                    <input class="form-input tz-city-input" id="tz-base-city-input"
+                           type="text" autocomplete="off"
+                           placeholder="Start typing a city, e.g. London, New York" />
+                    <div class="tz-city-suggestions" id="tz-base-city-suggestions"></div>
+                    <input type="hidden" id="tz-base-city-tz" />
+                    <div class="tz-city-tzlabel" id="tz-base-city-tzlabel">
+                        Using your browser time zone by default
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="tool-section-title" style="margin-top: 1rem;">Hours classification</h3>
+
+            <div class="form-row">
+                <label class="form-label">Working hours</label>
+                <div class="tz-hours-range">
+                    <input class="form-input tz-hours-input" id="tz-working-start" type="time" value="09:00" />
+                    <span class="tz-hours-separator">to</span>
+                    <input class="form-input tz-hours-input" id="tz-working-end" type="time" value="17:00" />
+                </div>
+            </div>
+
+            <div class="form-row">
+                <label class="form-label">Sociable hours</label>
+                <div class="tz-hours-range">
+                    <input class="form-input tz-hours-input" id="tz-social-start" type="time" value="07:00" />
+                    <span class="tz-hours-separator">to</span>
+                    <input class="form-input tz-hours-input" id="tz-social-end" type="time" value="21:00" />
+                </div>
+            </div>
+
+            <p class="tool-note small">
+                “Within working hours” is based on the working-hours range. Times outside working hours but inside
+                sociable hours are shown as “within sociable hours”. Everything else is treated as unsociable.
+            </p>
+        </div>
+
+        <!-- RIGHT: PARTICIPANTS -->
+        <div class="tool-section tool-results">
+            <h3 class="tool-section-title">Participants</h3>
+
+            <div class="form-row form-action">
+                <button type="button" id="tz-add-participant" class="btn btn-primary btn-sm">
+                    Add participant
+                </button>
+                <button type="button" id="tz-save-participants" class="btn btn-secondary btn-sm">
+                    Save participants
+                </button>
+                <button type="button" id="tz-load-participants" class="btn btn-outline-secondary btn-sm">
+                    Load participants
+                </button>
+                <button type="button" id="tz-copy-times" class="btn btn-outline-primary btn-sm">
+                    Copy meeting times
+                </button>
+            </div>
+
+
+            <div class="table-wrapper">
+                <table class="table-standard" id="tz-participants-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>Local time</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tz-participants-body">
+                        <!-- Rows added by JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="tool-note small">
+                Status is based on each person’s local time and your chosen working and sociable hours.
+            </p>
+
+            <div id="tz-summary" class="tool-note">
+                Choose a meeting time and add participants to see how it fits everyone.
+            </div>
+        </div>
+    </div>
+
+    <p class="tool-note">
+        All calculations happen in your browser using time zone data (IANA zones) – nothing is sent to a server.
+        Participants can be saved to your browser and loaded again later.
+    </p>
+</section>
+
+@section Scripts {
+    <script src="~/js/timezone-meeting.js"></script>
+    <script src="~/css/timezone-meeting.js"></script>
+    <script src="~/data/cities-timezones.json"></script>
+
+}

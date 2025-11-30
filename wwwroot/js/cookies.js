@@ -1,52 +1,58 @@
 ﻿(function () {
-    const banner = document.getElementById('cookie-banner');
-    const acceptBtn = document.getElementById('cookie-accept');
-    const rejectBtn = document.getElementById('cookie-reject');
+    const CONSENT_KEY = 'qt-cookie-consent';
 
-    if (!banner) return;
-
-    const consent = localStorage.getItem('qt-cookie-consent');
-
-    if (!consent) {
-        banner.classList.remove('hidden');
-    } else {
-        // Load scripts now if user previously accepted
-        if (consent === "accepted") loadOptionalScripts();
+    function getStoredConsent() {
+        try {
+            return localStorage.getItem(CONSENT_KEY);
+        } catch (e) {
+            console.warn('Cookie consent: localStorage not available', e);
+            return null;
+        }
     }
 
-    acceptBtn.addEventListener('click', () => {
-        localStorage.setItem('qt-cookie-consent', 'accepted');
-        banner.classList.add('hidden');
-        loadOptionalScripts();
-    });
-
-    rejectBtn.addEventListener('click', () => {
-        localStorage.setItem('qt-cookie-consent', 'rejected');
-        banner.classList.add('hidden');
-        // Do NOT load optional scripts
-    });
-
-    function loadOptionalScripts() {
-        // Example: Google Analytics
-        const ga = document.createElement('script');
-        ga.src = "https://www.googletagmanager.com/gtag/js?id=G-XXXX";
-        ga.async = true;
-        document.head.appendChild(ga);
-
-        const gaConfig = document.createElement('script');
-        gaConfig.innerHTML = `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-XXXX');
-        `;
-        document.head.appendChild(gaConfig);
-
-        // Ads (AdSense) only IF user accepted
-        const ads = document.createElement('script');
-        ads.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
-        ads.setAttribute("data-ad-client", "YOUR-AD-CLIENT-ID");
-        ads.async = true;
-        document.head.appendChild(ads);
+    function setStoredConsent(value) {
+        try {
+            localStorage.setItem(CONSENT_KEY, value);
+        } catch (e) {
+            console.warn('Cookie consent: unable to store value', e);
+        }
     }
+
+    // Simple helper you can use from other scripts
+    window.qtHasCookieConsent = function () {
+        return getStoredConsent() === 'accepted';
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const banner = document.getElementById('cookie-banner');
+        const acceptBtn = document.getElementById('cookie-accept');
+        const rejectBtn = document.getElementById('cookie-reject');
+
+        if (!banner || !acceptBtn || !rejectBtn) {
+            console.warn('Cookie consent: banner or buttons not found in DOM');
+            return;
+        }
+
+        const existing = getStoredConsent();
+
+        // If they've already accepted or rejected, hide the banner
+        if (existing === 'accepted' || existing === 'rejected') {
+            banner.classList.add('hidden');
+        } else {
+            banner.classList.remove('hidden');
+        }
+
+        acceptBtn.addEventListener('click', function () {
+            setStoredConsent('accepted');
+            banner.classList.add('hidden');
+            // TODO: initialise analytics/ads here if you add them later
+            // e.g. loadGoogleAnalytics();
+        });
+
+        rejectBtn.addEventListener('click', function () {
+            setStoredConsent('rejected');
+            banner.classList.add('hidden');
+            // Optional: disable analytics / avoid loading ad scripts
+        });
+    });
 })();
