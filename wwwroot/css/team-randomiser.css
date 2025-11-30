@@ -1,0 +1,39 @@
+﻿body {
+}
+/* ----------------------------
+   TEAM RANDOMISER
+   ---------------------------- */
+
+.team-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.team-card {
+    flex: 1 1 200px;
+    border: 1px solid var(--border-colour);
+    border-radius: 4px;
+    padding: 0.6rem 0.8rem;
+    background: var(--bg-card);
+}
+
+.team-card-title {
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+    font-size: 0.95rem;
+}
+
+.team-card ul {
+    padding-left: 1.1rem;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Mobile tweaks */
+@media (max-width: 768px) {
+    .team-card {
+        flex: 1 1 100%;
+    }
+}

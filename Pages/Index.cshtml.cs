@@ -19,6 +19,8 @@ namespace QuickToolbox.Pages
                 ["LoanCalculator"] = "Finance",
                 ["SavingsCalculator"] = "Finance",
                 ["Tournament"] = "Games",
+                ["League"] = "Games",
+                ["TeamRandomiser"] = "Games",
                 // add more here as you go
             };
 

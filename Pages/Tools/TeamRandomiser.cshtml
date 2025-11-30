@@ -1,0 +1,98 @@
+﻿@page
+@model QuickToolbox.Pages.Tools.TeamRandomiserModel
+@{
+    ViewData["Title"] = "Team Randomiser";
+}
+
+<section class="tool-page">
+    <header class="tool-header">
+        <h2>Team Randomiser</h2>
+        <p>
+            Enter player names (optionally with ratings) and create balanced random teams for matches, tournaments or game nights.
+        </p>
+    </header>
+
+    <div class="tool-layout responsive-stack">
+        <!-- LEFT: INPUTS -->
+        <div class="tool-section tool-input">
+            <h3 class="tool-section-title">Players</h3>
+
+            <div class="form-row">
+                <label class="form-label" for="tr-players">
+                    One player per line (optionally add a rating, e.g. "Alice - 8")
+                </label>
+                <textarea class="form-input form-input-multiline" id="tr-players" rows="10"
+                          placeholder="Alice - 8
+Bob - 7
+Charlie - 5
+Dave - 4
+Eve - 9
+Frank - 6"></textarea>
+            </div>
+
+            <h3 class="tool-section-title" style="margin-top:0.75rem;">Team settings</h3>
+
+            <div class="form-row">
+                <label class="form-label">Mode</label>
+                <div>
+                    <label class="checkbox-row">
+                        <input type="radio" name="tr-mode" id="tr-mode-numteams" value="numTeams" checked />
+                        <span>Number of teams</span>
+                    </label>
+                    <label class="checkbox-row">
+                        <input type="radio" name="tr-mode" id="tr-mode-size" value="teamSize" />
+                        <span>Players per team</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-row" id="tr-numteams-row">
+                <label class="form-label" for="tr-numteams">Number of teams</label>
+                <input class="form-input" id="tr-numteams" type="number" min="2" max="32" value="2" />
+            </div>
+
+            <div class="form-row" id="tr-teamsize-row" style="display:none;">
+                <label class="form-label" for="tr-teamsize">Players per team</label>
+                <input class="form-input" id="tr-teamsize" type="number" min="2" max="32" value="5" />
+            </div>
+
+            <div class="form-row form-action">
+                <button type="button" id="tr-generate" class="btn btn-primary">Generate teams</button>
+            </div>
+
+            <div class="form-row form-action">
+                <button type="button" id="tr-reshuffle" class="btn btn-secondary" disabled>Reshuffle</button>
+            </div>
+
+            <p class="tool-note small">
+                Empty lines are ignored. You can add ratings (e.g. 1–10) after a dash, comma or space, and the tool will try to balance total team strength.
+            </p>
+        </div>
+
+        <!-- RIGHT: RESULTS -->
+        <div class="tool-section tool-results">
+            <h3 class="tool-section-title">Teams</h3>
+
+            <div id="tr-message" class="tool-note">
+                Enter players and click <strong>Generate teams</strong> to see the result here.
+            </div>
+
+            <div class="team-layout" id="tr-teams-container">
+                <!-- Teams will be rendered here -->
+            </div>
+
+            <div class="form-row form-action" style="margin-top:0.75rem;">
+                <button type="button" id="tr-copy" class="btn btn-outline-primary" disabled>Copy teams to clipboard</button>
+            </div>
+        </div>
+    </div>
+
+    <p class="tool-note">
+        All team generation happens in your browser. Nothing is uploaded.
+    </p>
+</section>
+
+@section Scripts {
+    <script src="~/js/team-randomiser.js"></script>
+    <script src="~/css/team-randomiser.js"></script>
+}
