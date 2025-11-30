@@ -1,0 +1,86 @@
+﻿body {
+}
+/* Next fixture panel */
+
+.next-fixture-display {
+    border: 1px solid var(--border-colour);
+    border-radius: 4px;
+    padding: 0.6rem 0.8rem;
+    margin-bottom: 0.5rem;
+    background: var(--bg-card);
+}
+
+.next-fixture-round {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    margin-bottom: 0.2rem;
+}
+
+.next-fixture-teams {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.next-fixture-team {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.next-fixture-vs {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* Manual goal input layout */
+.next-fixture-goals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    align-items: flex-end;
+}
+
+.goal-input {
+    flex: 1 1 80px;
+}
+
+/* Minimise teams block once league is generated */
+#lg-teams-block.minimised .form-input-multiline {
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+#lg-teams-block.minimised .form-label[for="lg-teams"] {
+    font-size: 0.85rem;
+}
+
+/* Fixture highlighting */
+.fixture-selected {
+    background: rgba(255, 215, 0, 0.15);
+}
+
+[data-theme="dark"] .fixture-selected {
+    background: rgba(255, 215, 0, 0.18);
+}
+
+.fixture-played {
+    opacity: 0.7;
+}
+
+/* small note already defined earlier */
+.tool-note.small {
+    font-size: 0.8rem;
+}
+
+/* Mobile tweaks */
+@media (max-width: 768px) {
+    .next-fixture-team {
+        font-size: 0.95rem;
+    }
+
+    #lg-teams-block.minimised .form-input-multiline {
+        max-height: 90px;
+    }
+}

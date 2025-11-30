@@ -18,6 +18,7 @@ namespace QuickToolbox.Pages
                 ["CaseConverter"] = "Text",
                 ["LoanCalculator"] = "Finance",
                 ["SavingsCalculator"] = "Finance",
+                ["Tournament"] = "Games",
                 // add more here as you go
             };
 

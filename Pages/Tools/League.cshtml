@@ -1,0 +1,175 @@
+﻿@page
+@model QuickToolbox.Pages.Tools.LeagueModel
+@{
+    ViewData["Title"] = "League Table Generator";
+}
+
+<section class="tool-page">
+    <header class="tool-header">
+        <h2>League Table Generator</h2>
+        <p>
+            Enter team names, generate a round-robin fixture list, then record match results to see the league table update.
+        </p>
+    </header>
+
+    <div class="tool-layout responsive-stack">
+        <!-- LEFT: INPUTS & NEXT FIXTURE -->
+        <div class="tool-section tool-input" id="lg-teams-block">
+            <h3 class="tool-section-title">Teams</h3>
+
+            <div class="form-row">
+                <label class="form-label" for="lg-teams">One team per line</label>
+                <textarea class="form-input form-input-multiline" id="lg-teams" rows="10"
+                          placeholder="Team A
+Team B
+Team C
+Team D"></textarea>
+            </div>
+
+            <div class="form-row">
+                <label class="form-label">Format</label>
+                <div>
+                    <label class="checkbox-row">
+                        <input type="radio" name="lg-format" id="lg-format-single" value="single" checked />
+                        <span>Each team plays each other once</span>
+                    </label>
+                    <label class="checkbox-row">
+                        <input type="radio" name="lg-format" id="lg-format-double" value="double" />
+                        <span>Home &amp; away (twice)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-row form-action">
+                <button type="button" id="lg-generate" class="btn btn-primary">Generate league</button>
+            </div>
+
+            <hr />
+
+            <div class="next-fixture-panel">
+                <h3 class="tool-section-title">Next fixture</h3>
+
+                <div id="lg-next-fixture" class="next-fixture-display">
+                    <div class="next-fixture-round" id="lg-next-fixture-round">Round –</div>
+                    <div class="next-fixture-teams">
+                        <span class="next-fixture-team next-fixture-team-home" id="lg-next-home">Home</span>
+                        <span class="next-fixture-vs">vs</span>
+                        <span class="next-fixture-team next-fixture-team-away" id="lg-next-away">Away</span>
+                    </div>
+                </div>
+
+                <div class="form-row" style="margin-top:0.5rem;">
+                    <label class="form-label">
+                        <input type="checkbox" id="lg-track-goals" />
+                        Track goals, if off then each result will be recorded as 1-0 
+                    </label>
+                </div>
+
+                <!-- Quick outcome buttons (used when NOT tracking goals) -->
+                <div class="next-fixture-buttons" id="lg-outcome-buttons">
+                    <button type="button" id="lg-home-win" class="btn btn-success" disabled>Home win</button>
+                    <button type="button" id="lg-draw" class="btn btn-outline-secondary" disabled>Draw</button>
+                    <button type="button" id="lg-away-win" class="btn btn-success" disabled>Away win</button>
+                </div>
+
+                <!-- Manual score inputs (used when tracking goals) -->
+                <div class="next-fixture-goals" id="lg-goal-inputs" style="display:none;">
+                    <div class="goal-input">
+                        <label class="form-label" for="lg-home-goals">Home goals</label>
+                        <input type="number" id="lg-home-goals" class="form-input" min="0" value="0" />
+                    </div>
+                    <div class="goal-input">
+                        <label class="form-label" for="lg-away-goals">Away goals</label>
+                        <input type="number" id="lg-away-goals" class="form-input" min="0" value="0" />
+                    </div>
+                    <button type="button" id="lg-save-score" class="btn btn-primary" disabled>Save result</button>
+                </div>
+
+                <p class="tool-note small">
+                    Click a fixture in the list to select a different upcoming match.
+                </p>
+            </div>
+
+            <div class="form-row form-action">
+                <button type="button" id="lg-undo" class="btn btn-outline-secondary" disabled>Undo last result</button>
+            </div>
+
+            <div class="form-row form-action">
+                <button type="button" id="lg-save" class="btn btn-outline-primary" disabled>Save league to browser</button>
+            </div>
+
+            <div class="form-row form-action">
+                <button type="button" id="lg-load" class="btn btn-outline-primary" disabled>Load saved league</button>
+            </div>
+        </div>
+
+
+        <!-- RIGHT: TABLE + FIXTURES -->
+        <div class="tool-section tool-results">
+            <h3 class="tool-section-title">League table</h3>
+
+            <div id="lg-message" class="tool-note">
+                Enter teams and click <strong>Generate league</strong> to create fixtures and a table.
+            </div>
+
+            <div class="tool-table-wrapper">
+                <table class="tool-table" id="lg-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Team</th>
+                            <th>P</th>
+                            <th>W</th>
+                            <th>D</th>
+                            <th>L</th>
+                            <th>GF</th>
+                            <th>GA</th>
+                            <th>GD</th>
+                            <th>Pts</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="10">No league generated yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <section class="tool-section" style="margin-top:1rem;">
+                <h3 class="tool-section-title">Fixtures</h3>
+                <div class="tool-note" id="lg-fixtures-note">
+                    Fixtures will appear here after generating the league.
+                </div>
+                <div class="tool-table-wrapper">
+                    <table class="tool-table" id="lg-fixtures">
+                        <thead>
+                            <tr>
+                                <th>Round</th>
+                                <th>Home</th>
+                                <th>Score</th>
+                                <th>Away</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="4">No fixtures yet.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <p class="tool-note">
+        All calculations run in your browser. Nothing is uploaded.
+    </p>
+</section>
+
+@section Scripts {
+    <script src="~/js/league.js"></script>
+    <script src="~/css/league.js"></script>
+}
+
+              
