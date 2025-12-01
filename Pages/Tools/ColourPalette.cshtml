@@ -7,37 +7,68 @@
 <section class="tool-page">
     <header class="tool-header">
         <h2>Colour Palette Generator</h2>
-        <p>Create your own colour palette, preview shades, and copy the values.</p>
+        <p>
+            Build harmonious colour palettes, check accessibility contrast, and export them for your projects.
+        </p>
     </header>
 
     <div class="tool-layout responsive-stack cp-layout">
-        <!-- LEFT SIDE -->
+        <!-- LEFT: CONTROLS -->
         <div class="tool-section tool-input">
             <h3 class="tool-section-title">Base colour</h3>
 
             <div class="form-row">
-                <label class="form-label">Pick colour</label>
+                <label class="form-label" for="cp-base">Pick colour</label>
                 <input type="color" id="cp-base" class="form-input" value="#34aca4" />
             </div>
 
             <div class="form-row">
-                <label class="form-label">Or enter HEX</label>
+                <label class="form-label" for="cp-hex">Or enter HEX</label>
                 <input id="cp-hex" class="form-input" type="text" value="#34aca4" />
             </div>
 
-            <button id="cp-random" class="btn btn-secondary">
-                Random colour
-            </button>
+            <div class="form-row">
+                <label class="form-label" for="cp-mode">Harmony mode</label>
+                <select id="cp-mode" class="form-input">
+                    <option value="monochrome">Monochrome (tints &amp; shades)</option>
+                    <option value="complementary">Complementary</option>
+                    <option value="analogous">Analogous</option>
+                    <option value="triadic">Triadic</option>
+                </select>
+            </div>
 
-            <button id="cp-generate" class="btn btn-primary">Regenerate palette</button>
+            <div class="form-row cp-button-row">
+                <button id="cp-random" class="btn btn-secondary">Random colour</button>
+                <button id="cp-generate" class="btn btn-primary">Regenerate palette</button>
+            </div>
+
+            <hr />
+
+            <h3 class="tool-section-title">Export</h3>
+
+            <div class="cp-export-buttons">
+                <button id="cp-export-css" class="btn btn-secondary btn-sm">CSS variables</button>
+                <button id="cp-export-tailwind" class="btn btn-secondary btn-sm">Tailwind config</button>
+                <button id="cp-export-json" class="btn btn-secondary btn-sm">JSON</button>
+                <button id="cp-export-png" class="btn btn-secondary btn-sm">PNG image</button>
+            </div>
+
+            <div class="form-row">
+                <label class="form-label" for="cp-export-output">Export output (auto-copied where possible)</label>
+                <textarea id="cp-export-output" class="form-input" rows="6" readonly></textarea>
+            </div>
         </div>
 
-        <!-- RIGHT SIDE -->
+        <!-- RIGHT: PALETTE -->
         <div class="tool-section tool-output">
-            <h3 class="tool-section-title">Palette</h3>
+            <h3 class="tool-section-title">Palette &amp; contrast</h3>
+
+            <p class="cp-help">
+                Click a swatch to copy its HEX. Contrast ratings show how readable black and white text are on each colour.
+            </p>
 
             <div id="cp-grid" class="cp-grid">
-                <!-- JS fills these -->
+                <!-- JS fills this -->
             </div>
         </div>
     </div>
@@ -48,34 +79,69 @@
 }
 
 
+
 <style>
-    /* Colour Palette Generator layout tweaks */
+    /* Colour Palette Generator layout & styles */
     .cp-layout {
-        align-items: flex-start; /* keep base panel and palette panel level at the top */
+        align-items: flex-start;
     }
 
-    /* Palette grid + swatches */
+    .cp-button-row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .cp-export-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 8px;
+    }
+
+    .cp-help {
+        font-size: 0.9rem;
+        color: #555;
+    }
+
     .cp-grid {
         display: grid;
         gap: 12px;
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     }
 
     .cp-swatch {
         border-radius: 6px;
         padding: 10px;
-        color: #fff;
         font-size: 13px;
         cursor: pointer;
-        text-align: center;
+        text-align: left;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end;
-        height: 100px;
+        justify-content: space-between;
+        height: 120px;
+        box-sizing: border-box;
+        transition: transform 0.08s ease-out, box-shadow 0.08s ease-out;
     }
 
         .cp-swatch:hover {
-            outline: 2px solid #000;
+            box-shadow: 0 0 0 2px #00000088;
+            transform: translateY(-2px);
+        }
+
+    .cp-hex-label {
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+
+    .cp-contrast {
+        font-size: 11px;
+        line-height: 1.3;
+        opacity: 0.9;
+    }
+
+        .cp-contrast strong {
+            font-weight: 600;
         }
 
 </style>
