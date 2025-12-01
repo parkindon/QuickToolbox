@@ -22,6 +22,9 @@ namespace QuickToolbox.Pages
                 ["League"] = "Games",
                 ["TeamRandomiser"] = "Games",
                 ["PercentageDifference"] = "Numbers",
+                ["ColourPalette"] = "Design",
+                ["TimeZoneMeetingFinder"] = "Global",
+                
                 // add more here as you go
             };
 

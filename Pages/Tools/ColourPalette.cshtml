@@ -1,0 +1,81 @@
+﻿@page
+@model QuickToolbox.Pages.Tools.ColourPaletteModel
+@{
+    ViewData["Title"] = "Colour Palette Generator";
+}
+
+<section class="tool-page">
+    <header class="tool-header">
+        <h2>Colour Palette Generator</h2>
+        <p>Create your own colour palette, preview shades, and copy the values.</p>
+    </header>
+
+    <div class="tool-layout responsive-stack cp-layout">
+        <!-- LEFT SIDE -->
+        <div class="tool-section tool-input">
+            <h3 class="tool-section-title">Base colour</h3>
+
+            <div class="form-row">
+                <label class="form-label">Pick colour</label>
+                <input type="color" id="cp-base" class="form-input" value="#34aca4" />
+            </div>
+
+            <div class="form-row">
+                <label class="form-label">Or enter HEX</label>
+                <input id="cp-hex" class="form-input" type="text" value="#34aca4" />
+            </div>
+
+            <button id="cp-random" class="btn btn-secondary">
+                Random colour
+            </button>
+
+            <button id="cp-generate" class="btn btn-primary">Regenerate palette</button>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="tool-section tool-output">
+            <h3 class="tool-section-title">Palette</h3>
+
+            <div id="cp-grid" class="cp-grid">
+                <!-- JS fills these -->
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="/js/colour-palette.js"></script>
+}
+
+
+<style>
+    /* Colour Palette Generator layout tweaks */
+    .cp-layout {
+        align-items: flex-start; /* keep base panel and palette panel level at the top */
+    }
+
+    /* Palette grid + swatches */
+    .cp-grid {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+
+    .cp-swatch {
+        border-radius: 6px;
+        padding: 10px;
+        color: #fff;
+        font-size: 13px;
+        cursor: pointer;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        height: 100px;
+    }
+
+        .cp-swatch:hover {
+            outline: 2px solid #000;
+        }
+
+</style>

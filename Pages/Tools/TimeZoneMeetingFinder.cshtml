@@ -29,6 +29,15 @@
             </div>
 
             <div class="form-row">
+                <label class="form-label" for="tz-time-range">Adjust time</label>
+                <input class="form-range" id="tz-time-range" type="range" min="0" max="1439" step="15" />
+                <div class="tz-time-range-label" id="tz-time-range-label">
+                    Time: --:--
+                </div>
+            </div>
+
+
+            <div class="form-row">
                 <label class="form-label" for="tz-base-city-input">
                     Base location (where the meeting time is defined)
                 </label>
@@ -75,20 +84,20 @@
         <div class="tool-section tool-results">
             <h3 class="tool-section-title">Participants</h3>
 
-            <div class="form-row form-action">
-                <button type="button" id="tz-add-participant" class="btn btn-primary btn-sm">
-                    Add participant
-                </button>
-                <button type="button" id="tz-save-participants" class="btn btn-secondary btn-sm">
-                    Save participants
-                </button>
-                <button type="button" id="tz-load-participants" class="btn btn-outline-secondary btn-sm">
-                    Load participants
-                </button>
-                <button type="button" id="tz-copy-times" class="btn btn-outline-primary btn-sm">
-                    Copy meeting times
-                </button>
-            </div>
+          <div class="form-row form-action">
+    <button type="button" id="tz-add-participant" class="btn btn-primary btn-sm">
+        Add participant
+    </button>
+    <button type="button" id="tz-save-participants" class="btn btn-secondary btn-sm">
+        Save participants
+    </button>
+    <button type="button" id="tz-load-participants" class="btn btn-outline-secondary btn-sm">
+        Load participants
+    </button>
+    <button type="button" id="tz-copy-times" class="btn btn-outline-primary btn-sm">
+        Copy meeting times
+    </button>
+</div>
 
 
             <div class="table-wrapper">
@@ -130,3 +139,55 @@
     <script src="~/data/cities-timezones.json"></script>
 
 }
+
+                <style>
+    .tz-time-range-label {
+        margin-top: 0.25rem;
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+
+    /* If you want the slider to behave like your other inputs on mobile: */
+    .form-range {
+        width: 100%;
+    }
+    /* Make status cell use flex so we can show an icon + text nicely */
+    .tz-status-cell {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        font-size: 0.9rem;
+    }
+
+        /* Base “dot” indicator, the specific colour comes from the status class */
+        .tz-status-cell::before {
+            content: "";
+            width: 0.6rem;
+            height: 0.6rem;
+            border-radius: 50%;
+            display: inline-block;
+            background-color: transparent;
+            opacity: 0.9;
+        }
+    /* Working hours = calm green */
+    .tz-status-ok::before {
+        background-color: #4caf50;
+    }
+
+    /* Sociable but not work hours = softer blue */
+    .tz-status-social::before {
+        background-color: #1e88e5;
+    }
+
+    /* Unsociable = muted red */
+    .tz-status-bad::before {
+        background-color: #e53935;
+    }
+
+    /* Unknown / not set = grey */
+    .tz-status-unknown::before {
+        background-color: #9e9e9e;
+        opacity: 0.6;
+    }
+
+                </style>

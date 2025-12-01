@@ -8,6 +8,9 @@
 
     const dateInput = document.getElementById('tz-date');
     const timeInput = document.getElementById('tz-time');
+    const timeRange = document.getElementById('tz-time-range');
+    const timeRangeLabel = document.getElementById('tz-time-range-label');
+
 
     const baseCityInput = document.getElementById('tz-base-city-input');
     const baseCitySuggestions = document.getElementById('tz-base-city-suggestions');
@@ -203,6 +206,25 @@
         if (isNaN(h) || isNaN(m)) return fallbackMinutes;
         return h * 60 + m;
     }
+    function minutesToTimeString(mins) {
+        if (typeof mins !== 'number' || isNaN(mins)) {
+            return '--:--';
+        }
+        mins = Math.max(0, Math.min(1439, mins)); // clamp just in case
+        const h = Math.floor(mins / 60);
+        const m = mins % 60;
+        const hh = String(h).padStart(2, '0');
+        const mm = String(m).padStart(2, '0');
+        return `${hh}:${mm}`;
+    }
+    function updateTimeRangeLabel() {
+        if (!timeRange || !timeRangeLabel) return;
+
+        const mins = parseInt(timeRange.value, 10);
+        const timeStr = minutesToTimeString(mins);
+        timeRangeLabel.textContent = `Time: ${timeStr}`;
+    }
+
 
     function getHoursConfig() {
         const workingStart = timeInputToMinutes(workingStartInput, 9 * 60);   // 09:00
@@ -497,7 +519,31 @@
     // Wire up recalc triggers
     // -------------------------
     dateInput.addEventListener('change', recalculateAll);
-    timeInput.addEventListener('change', recalculateAll);
+    timeInput.addEventListener('change', function () {
+        // When user manually edits the time field, sync the slider
+        if (timeRange) {
+            const mins = timeInputToMinutes(timeInput, 9 * 60);
+            timeRange.value = mins;
+            updateTimeRangeLabel();
+        }
+        recalculateAll();
+    });
+
+
+    if (timeRange) {
+        timeRange.addEventListener('input', function () {
+            const mins = parseInt(timeRange.value, 10);
+            const timeStr = minutesToTimeString(mins);
+
+            // Update the time input so everything stays in sync
+            if (timeInput) {
+                timeInput.value = timeStr;
+            }
+
+            updateTimeRangeLabel();
+            recalculateAll();
+        });
+    }
 
     if (workingStartInput) workingStartInput.addEventListener('change', recalculateAll);
     if (workingEndInput) workingEndInput.addEventListener('change', recalculateAll);
@@ -515,6 +561,13 @@
         dateInput.value = rounded.plus({ days: 1 }).toISODate();
         timeInput.value = rounded.toFormat('HH:mm');
 
+        // Initialise the slider from the time input
+        if (timeRange) {
+            const mins = timeInputToMinutes(timeInput, 9 * 60); // fallback 09:00
+            timeRange.value = mins;
+            updateTimeRangeLabel();
+        }
+
         if (baseCityTzLabel && !baseCityTzHidden.value) {
             baseCityTzLabel.textContent =
                 `Using your browser time zone by default (${userDefaultZone})`;
@@ -522,4 +575,5 @@
 
         recalculateAll();
     })();
+
 })();
