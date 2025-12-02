@@ -1,0 +1,154 @@
+﻿@page
+@model QuickToolbox.Pages.Tools.TypographyScaleGeneratorModel
+@{
+    ViewData["Title"] = "Typography Scale Generator";
+}
+
+<section class="tool-page">
+    <header class="tool-header">
+        <h2>Typography Scale Generator</h2>
+        <p>
+            Generate a responsive, modular typography system from a single base size.
+            Choose a scale, viewport range and get CSS variables, Tailwind config and JSON.
+        </p>
+    </header>
+
+    <div class="tool-layout responsive-stack">
+        <!-- LEFT: INPUTS -->
+        <div class="tool-section tool-input">
+            <h3 class="tool-section-title">Base settings</h3>
+
+            <div class="form-row">
+                <label class="form-label" for="typo-base-size">Base font size (px)</label>
+                <input id="typo-base-size" class="form-input" type="number"
+                       value="16" min="8" max="32" step="0.5" />
+            </div>
+
+            <div class="form-row">
+                <label class="form-label" for="typo-scale">Scale</label>
+                <select id="typo-scale" class="form-input">
+                    <option value="1.2">Minor third (1.200)</option>
+                    <option value="1.25" selected>Major third (1.250)</option>
+                    <option value="1.333">Perfect fourth (1.333)</option>
+                    <option value="1.5">Perfect fifth (1.500)</option>
+                    <option value="1.618">Golden ratio (1.618)</option>
+                    <option value="custom">Custom…</option>
+                </select>
+            </div>
+
+            <div class="form-row" id="typo-scale-custom-row" style="display:none;">
+                <label class="form-label" for="typo-scale-custom">Custom scale ratio</label>
+                <input id="typo-scale-custom" class="form-input" type="number"
+                       value="1.25" min="1.01" max="2.5" step="0.01" />
+            </div>
+
+            <div class="form-row">
+                <label class="form-label">Viewport range (px)</label>
+                <div class="form-row-inline">
+                    <div>
+                        <span class="form-label-small">Min width</span>
+                        <input id="typo-min-vw" class="form-input" type="number"
+                               value="320" min="240" max="4000" step="10" />
+                    </div>
+                    <div>
+                        <span class="form-label-small">Max width</span>
+                        <input id="typo-max-vw" class="form-input" type="number"
+                               value="1200" min="320" max="6000" step="10" />
+                    </div>
+                </div>
+                <p class="form-help">
+                    Used to calculate <code>clamp()</code> so sizes grow smoothly between these widths.
+                </p>
+            </div>
+
+            <div class="form-row">
+                <label class="form-label" for="typo-steps-below">Steps below base</label>
+                <input id="typo-steps-below" class="form-input" type="number"
+                       value="2" min="0" max="6" />
+            </div>
+
+            <div class="form-row">
+                <label class="form-label" for="typo-steps-above">Steps above base</label>
+                <input id="typo-steps-above" class="form-input" type="number"
+                       value="4" min="0" max="10" />
+            </div>
+
+            <div class="form-row">
+                <label class="form-label" for="typo-fluid-factor">Fluid intensity</label>
+                <input id="typo-fluid-factor" class="form-input" type="range"
+                       min="0" max="0.5" step="0.05" value="0.2" />
+                <p class="form-help">
+                    Controls how much each step grows between min and max viewport.
+                    0 = fixed sizes, higher = more fluid.
+                </p>
+            </div>
+
+            <button id="typo-random-btn" class="btn btn-primary" type="button">
+                Random friendly scale
+            </button>
+        </div>
+
+        <!-- RIGHT: OUTPUTS -->
+        <div class="tool-section tool-output">
+            <h3 class="tool-section-title">Generated scale</h3>
+
+            <div class="typo-preview-panel">
+                <div class="typo-preview-header">
+                    <span>Preview</span>
+                    <select id="typo-preview-theme" class="form-input form-input-sm">
+                        <option value="light">Light background</option>
+                        <option value="dark">Dark background</option>
+                    </select>
+                </div>
+
+                <div id="typo-preview" class="typo-preview">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+
+            <h4 class="tool-subtitle">Steps table</h4>
+            <div class="table-responsive">
+                <table class="table table-sm typo-table">
+                    <thead>
+                        <tr>
+                            <th>Token</th>
+                            <th>Role</th>
+                            <th>Px @@ base</th>
+                            <th>Rem</th>
+                            <th>Line-height</th>
+                            <th>Tracking</th>
+                            <th><code>clamp()</code></th>
+                        </tr>
+                    </thead>
+                    <tbody id="typo-steps-body">
+                        <!-- Filled by JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <h4 class="tool-subtitle">CSS variables</h4>
+            <div class="export-block">
+                <button id="typo-copy-css" class="btn btn-secondary btn-sm" type="button">Copy</button>
+                <textarea id="typo-css-output" class="code-block" rows="8" readonly></textarea>
+            </div>
+
+            <h4 class="tool-subtitle">Tailwind <code>fontSize</code> config</h4>
+            <div class="export-block">
+                <button id="typo-copy-tw" class="btn btn-secondary btn-sm" type="button">Copy</button>
+                <textarea id="typo-tw-output" class="code-block" rows="8" readonly></textarea>
+            </div>
+
+            <h4 class="tool-subtitle">JSON scale</h4>
+            <div class="export-block">
+                <button id="typo-copy-json" class="btn btn-secondary btn-sm" type="button">Copy</button>
+                <textarea id="typo-json-output" class="code-block" rows="8" readonly></textarea>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/typography-scale-generator.js"></script>
+    <link rel="stylesheet" href="~/css/typography-scale-generator.css" asp-append-version="true" />
+
+}

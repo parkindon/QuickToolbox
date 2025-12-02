@@ -24,7 +24,9 @@ namespace QuickToolbox.Pages
                 ["PercentageDifference"] = "Numbers",
                 ["ColourPalette"] = "Design",
                 ["TimeZoneMeetingFinder"] = "Global",
-                
+                ["TypographyScaleGenerator"] = "Design",
+                ["ThemePreview"] = "Design"
+
                 // add more here as you go
             };
 
