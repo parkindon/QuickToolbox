@@ -1,8 +1,26 @@
 ﻿@page
 @model QuickToolbox.Pages.Tools.TournamentModel
+
 @{
-    ViewData["Title"] = "Tournament Bracket Generator";
+    ViewData["Title"] = "Tournament Bracket Generator – QuickToolkit";
+    ViewData["Description"] =
+        "Generate knockout tournament brackets automatically. Easy match editing and progression tracking for events of any size.";
 }
+
+@section HeadMeta {
+    <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org/",
+          "@@type": "SoftwareApplication",
+          "name": "Tournament Bracket Generator",
+          "applicationCategory": "SportsApplication",
+          "operatingSystem": "Web",
+          "description": "Generate knockout tournament brackets automatically. Easy match editing and progression tracking for events of any size.",
+          "url": "https://quicktoolkit.co.uk/tools/tournament/"
+        }
+    </script>
+}
+
 
 <section class="tool-page">
     <header class="tool-header">

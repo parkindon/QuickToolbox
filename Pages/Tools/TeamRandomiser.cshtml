@@ -1,8 +1,26 @@
 ﻿@page
 @model QuickToolbox.Pages.Tools.TeamRandomiserModel
+
 @{
-    ViewData["Title"] = "Team Randomiser";
+    ViewData["Title"] = "Team Randomiser – QuickToolkit";
+    ViewData["Description"] =
+        "Randomly generate fair, balanced teams instantly. Perfect for sports, classrooms, work events and multiplayer games.";
 }
+
+@section HeadMeta {
+    <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org/",
+          "@@type": "SoftwareApplication",
+          "name": "Team Randomiser",
+          "applicationCategory": "Utility",
+          "operatingSystem": "Web",
+          "description": "Randomly generate fair, balanced teams instantly. Perfect for sports, classrooms, work events and multiplayer games.",
+          "url": "https://quicktoolkit.co.uk/tools/teamrandomiser/"
+        }
+    </script>
+}
+
 
 <section class="tool-page">
     <header class="tool-header">

@@ -1,8 +1,26 @@
 ﻿@page
 @model QuickToolbox.Pages.Tools.LeagueModel
+
 @{
-    ViewData["Title"] = "League Table Generator";
+    ViewData["Title"] = "League Generator – QuickToolkit";
+    ViewData["Description"] =
+        "Create balanced sports leagues and fixtures instantly. Generate match schedules for any number of teams in seconds.";
 }
+
+@section HeadMeta {
+    <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org/",
+          "@@type": "SoftwareApplication",
+          "name": "League Generator",
+          "applicationCategory": "SportsApplication",
+          "operatingSystem": "Web",
+          "description": "Create balanced sports leagues and fixtures instantly. Generate match schedules for any number of teams in seconds.",
+          "url": "https://quicktoolkit.co.uk/tools/league/"
+        }
+    </script>
+}
+
 
 <section class="tool-page">
     <header class="tool-header">

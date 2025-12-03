@@ -1,8 +1,26 @@
 ﻿@page
 @model QuickToolbox.Pages.Tools.TypographyScaleGeneratorModel
+
 @{
-    ViewData["Title"] = "Typography Scale Generator";
+    ViewData["Title"] = "Typography Scale Generator – QuickToolkit";
+    ViewData["Description"] =
+        "Create responsive typography scales using popular ratios. Export CSS-ready font sizes for clean, consistent design.";
 }
+
+@section HeadMeta {
+    <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org/",
+          "@@type": "SoftwareApplication",
+          "name": "Typography Scale Generator",
+          "applicationCategory": "DesignApplication",
+          "operatingSystem": "Web",
+          "description": "Create responsive typography scales using popular ratios. Export CSS-ready font sizes for clean, consistent design.",
+          "url": "https://quicktoolkit.co.uk/tools/typographyscalegenerator/"
+        }
+    </script>
+}
+
 
 <section class="tool-page">
     <header class="tool-header">

@@ -1,58 +1,101 @@
-﻿(function () {
-    const CONSENT_KEY = 'qt-cookie-consent';
+﻿// cookies.js
+(function () {
+    const STORAGE_KEY = 'qt-cookie-consent';
+    const GA_ID = window.QT_GA_ID || ''; // set in _Layout
 
-    function getStoredConsent() {
+    const banner = document.getElementById('cookie-banner');
+    const acceptBtn = document.getElementById('cookie-accept');
+    const rejectBtn = document.getElementById('cookie-reject');
+
+    function safeGet(key) {
         try {
-            return localStorage.getItem(CONSENT_KEY);
-        } catch (e) {
-            console.warn('Cookie consent: localStorage not available', e);
+            return window.localStorage.getItem(key);
+        } catch {
             return null;
         }
     }
 
-    function setStoredConsent(value) {
+    function safeSet(key, value) {
         try {
-            localStorage.setItem(CONSENT_KEY, value);
-        } catch (e) {
-            console.warn('Cookie consent: unable to store value', e);
+            window.localStorage.setItem(key, value);
+        } catch {
+            // ignore (e.g. private mode / blocked storage)
         }
     }
 
-    // Simple helper you can use from other scripts
-    window.qtHasCookieConsent = function () {
-        return getStoredConsent() === 'accepted';
-    };
+    function hideBanner() {
+        if (banner) {
+            banner.classList.add('hidden');
+        }
+    }
 
+    function showBanner() {
+        if (banner) {
+            banner.classList.remove('hidden');
+        }
+    }
+
+    // ---- Analytics loader (ONLY after consent) ----
+    function enableAnalytics() {
+        if (!GA_ID) return;               // no ID, nothing to load
+        if (window.qtAnalyticsLoaded) return;
+        window.qtAnalyticsLoaded = true;
+
+        // gtag loader
+        const gaScript = document.createElement('script');
+        gaScript.async = true;
+        gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA_ID);
+        document.head.appendChild(gaScript);
+
+        // basic config
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        window.gtag = gtag;
+
+        gtag('js', new Date());
+        gtag('config', GA_ID, {
+            anonymize_ip: true // slightly better for privacy
+        });
+    }
+
+    // ---- Initial state ----
     document.addEventListener('DOMContentLoaded', function () {
-        const banner = document.getElementById('cookie-banner');
-        const acceptBtn = document.getElementById('cookie-accept');
-        const rejectBtn = document.getElementById('cookie-reject');
-
-        if (!banner || !acceptBtn || !rejectBtn) {
-            console.warn('Cookie consent: banner or buttons not found in DOM');
+        if (!banner) {
+            // No banner on this page – still honour consent for analytics
+            const consent = safeGet(STORAGE_KEY);
+            if (consent === 'accepted') {
+                enableAnalytics();
+            }
             return;
         }
 
-        const existing = getStoredConsent();
+        const consent = safeGet(STORAGE_KEY);
 
-        // If they've already accepted or rejected, hide the banner
-        if (existing === 'accepted' || existing === 'rejected') {
-            banner.classList.add('hidden');
+        if (consent === 'accepted') {
+            hideBanner();
+            enableAnalytics();
+        } else if (consent === 'rejected') {
+            hideBanner();
+            // never load GA
         } else {
-            banner.classList.remove('hidden');
+            showBanner();
         }
 
-        acceptBtn.addEventListener('click', function () {
-            setStoredConsent('accepted');
-            banner.classList.add('hidden');
-            // TODO: initialise analytics/ads here if you add them later
-            // e.g. loadGoogleAnalytics();
-        });
+        // ---- Button events ----
+        if (acceptBtn) {
+            acceptBtn.addEventListener('click', function () {
+                safeSet(STORAGE_KEY, 'accepted');
+                hideBanner();
+                enableAnalytics();
+            });
+        }
 
-        rejectBtn.addEventListener('click', function () {
-            setStoredConsent('rejected');
-            banner.classList.add('hidden');
-            // Optional: disable analytics / avoid loading ad scripts
-        });
+        if (rejectBtn) {
+            rejectBtn.addEventListener('click', function () {
+                safeSet(STORAGE_KEY, 'rejected');
+                hideBanner();
+                // explicitly do NOT call enableAnalytics()
+            });
+        }
     });
 })();

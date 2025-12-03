@@ -1,27 +1,31 @@
-﻿html {
-  font-size: 14px;
+﻿/* -------------------------------------------------
+   Base HTML / body
+   ------------------------------------------------- */
+
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    html {
+        font-size: 16px;
+    }
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
+/* Utility */
+.hidden {
+    display: none !important;
+}
 
+/* -------------------------------------------------
+   Cookie banner (theme-aware)
+   ------------------------------------------------- */
 
 .cookie-banner {
     position: fixed;
@@ -29,8 +33,9 @@ body {
     left: 0;
     right: 0;
     padding: 15px 20px;
-    background: #fff;
-    border-top: 1px solid #ccc;
+    background: var(--bg-card);
+    color: var(--text-colour);
+    border-top: 1px solid var(--border-colour);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -54,25 +59,24 @@ body {
 
     .cookie-buttons button {
         padding: 6px 14px;
-        border: 1px solid #444;
-        background: #f7f7f7;
+        border: 1px solid var(--border-colour);
+        background: var(--bg-colour);
+        color: var(--text-colour);
         cursor: pointer;
     }
 
         .cookie-buttons button:hover {
-            background: #e6e6e6;
+            background: var(--bg-card);
         }
 
-/* -------------------------------
-   📱 MOBILE LAYOUT (600px and below)
-   ------------------------------- */
+/* Mobile layout for cookie banner */
 @media (max-width: 600px) {
     .cookie-banner {
-        flex-direction: column; /* stack text + buttons */
-        align-items: stretch; /* full width children */
-        text-align: left; /* cleaner for long text */
+        flex-direction: column;
+        align-items: stretch;
+        text-align: left;
         padding: 20px;
-        gap: 14px; /* spacing between sections */
+        gap: 14px;
     }
 
     .cookie-text {
@@ -86,14 +90,15 @@ body {
     }
 
         .cookie-buttons button {
-            flex: 1; /* full width buttons */
+            flex: 1;
             padding: 10px;
         }
 }
 
+/* -------------------------------------------------
+   Dark mode theme variables
+   ------------------------------------------------- */
 
-
-/* dark mode */
 /* Base theme (light) */
 :root {
     --bg-colour: #f5f5f5;
@@ -122,7 +127,24 @@ body {
         --header-text: var(--nav-text);
     }
 
-/* Apply variables to common elements */
+/* If no explicit data-theme is set, follow system preference */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]):not([data-theme="dark"]) {
+        --bg-colour: #121212;
+        --bg-card: #1e1e1e;
+        --text-colour: #f1f1f1;
+        --border-colour: #333333;
+        --link-colour: #4da3ff;
+        --link-hover-colour: #82c4ff;
+        --nav-bg: #1a1a1a;
+        --nav-text: #f1f1f1;
+        --header-bg: var(--nav-bg);
+        --header-text: var(--nav-text);
+    }
+}
+
+/* Apply variables */
+
 body {
     background: var(--bg-colour);
     color: var(--text-colour);
@@ -142,43 +164,30 @@ a {
         color: var(--link-hover-colour);
     }
 
-.tool-page,
-.tool-card,
-.tool-stats,
-.tool-input {
-    background: var(--bg-card);
-    border: 1px solid var(--border-colour);
-}
-
-/* If no explicit data-theme is set, let the browser decide */
-@media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]):not([data-theme="dark"]) {
-        --bg-colour: #121212;
-        --bg-card: #1e1e1e;
-        --text-colour: #f1f1f1;
-        --border-colour: #333333;
-        --link-colour: #4da3ff;
-        --link-hover-colour: #82c4ff;
-        --nav-bg: #1a1a1a;
-        --nav-text: #f1f1f1;
-    }
-}
+/* -------------------------------------------------
+   Navbar + theme toggle
+   ------------------------------------------------- */
 
 .navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem 1rem;
+    background: var(--nav-bg);
 }
 
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 1rem;
-    margin: 0;
-    padding: 0;
+/* 🔹 Make navbar text follow the theme */
+.app-navbar .navbar-brand,
+.app-navbar .nav-link {
+    color: var(--nav-text);
 }
 
+    .app-navbar .navbar-brand:hover,
+    .app-navbar .nav-link:hover {
+        color: var(--link-hover-colour);
+    }
+
+/* keep existing theme-toggle styles */
 .theme-toggle {
     border: 1px solid var(--border-colour);
     background: transparent;
@@ -193,22 +202,20 @@ a {
         background: rgba(255, 255, 255, 0.08);
     }
 
-
-
-/* -----------------------------------------
-   GENERIC TABLE SYSTEM (DESKTOP-FIRST)
-   ----------------------------------------- */
+/* -------------------------------------------------
+   Generic tool table system
+   ------------------------------------------------- */
 
 .tool-table-wrapper {
     max-height: 400px;
     overflow-y: auto;
-    overflow-x: auto; /* allow horizontal scroll if needed */
+    overflow-x: auto;
     border: 1px solid var(--border-colour);
     border-radius: 4px;
     background: var(--bg-card);
     margin-top: 1rem;
     position: relative;
-    -webkit-overflow-scrolling: touch; /* smoother scroll on iOS */
+    -webkit-overflow-scrolling: touch;
 }
 
 .tool-table {
@@ -217,17 +224,15 @@ a {
     font-size: 0.9rem;
     background: var(--bg-card);
     color: var(--text-colour);
-    min-width: 100%; /* plays nicely with overflow-x */
+    min-width: 100%;
 }
-
-    /* Cells */
 
     .tool-table th,
     .tool-table td {
         padding: 0.4rem 0.6rem;
         border-bottom: 1px solid var(--border-colour);
         text-align: right;
-        white-space: nowrap; /* keeps numbers tidy; see mobile override below */
+        white-space: nowrap;
     }
 
         .tool-table th:first-child,
@@ -236,7 +241,6 @@ a {
         }
 
     /* Sticky header */
-
     .tool-table thead {
         position: sticky;
         top: 0;
@@ -245,7 +249,6 @@ a {
     }
 
     /* Hover / zebra */
-
     .tool-table tbody tr:hover {
         background: rgba(255, 255, 255, 0.06);
     }
@@ -254,27 +257,23 @@ a {
         background: rgba(255, 255, 255, 0.02);
     }
 
-/* -----------------------------------------
-   MOBILE TWEAKS
-   ----------------------------------------- */
-
+/* Mobile tweaks for tables */
 @media (max-width: 768px) {
     .tool-table-wrapper {
-        max-height: none; /* let the page scroll normally */
+        max-height: none;
         margin-top: 0.75rem;
     }
 
     .tool-table {
-        font-size: 0.8rem; /* slightly smaller text */
+        font-size: 0.8rem;
     }
 
         .tool-table th,
         .tool-table td {
             padding: 0.35rem 0.45rem;
-            white-space: normal; /* allow wrapping on very small screens */
+            white-space: normal;
         }
 
-    /* Subtle scroll hint on small screens */
     .tool-table-wrapper::after {
         content: "Scroll →";
         position: absolute;
@@ -286,28 +285,31 @@ a {
     }
 }
 
+/* -------------------------------------------------
+   Tool layout + cards
+   ------------------------------------------------- */
 
-
-
-
-/* Layout for tool pages */
+/* Overall tool page container */
 .tool-page {
     max-width: 1100px;
     margin: 0 auto;
     padding: 1.5rem 1rem 3rem;
 }
 
-.tool-header {
+/* Header band (more specific so it beats auto styles) */
+section.tool-page .tool-header {
     margin-bottom: 1.5rem;
     background: var(--header-bg);
     color: var(--header-text);
     padding: 1rem 0;
+    border: 1px solid var(--border-colour);
 }
 
-    .tool-header p {
+    section.tool-page .tool-header p {
         color: var(--header-text);
     }
 
+/* Main layout row */
 .tool-layout {
     display: flex;
     gap: 1.5rem;
@@ -318,17 +320,23 @@ a {
     flex-wrap: nowrap;
 }
 
-/* Sections / cards */
-.tool-section {
+/* Sections / cards – MORE SPECIFIC so it overrides page-level .tool-section */
+section.tool-page .tool-section,
+section.tool-page .tool-card,
+section.tool-page .tool-input,
+section.tool-page .tool-output,
+section.tool-page .tool-stats {
     background: var(--bg-card);
+    color: var(--text-colour);
     border: 1px solid var(--border-colour);
     border-radius: 4px;
     padding: 1rem;
 }
 
-    .tool-section + .tool-section {
-        margin-top: 1rem;
-    }
+/* Extra margin if you stack multiple sections vertically */
+.tool-section + .tool-section {
+    margin-top: 1rem;
+}
 
 .tool-section-title {
     margin-top: 0;
@@ -347,14 +355,16 @@ a {
     font-size: 0.9rem;
 }
 
-.form-input {
+.form-input,
+.form-input-multiline {
     background: var(--bg-card);
     color: var(--text-colour);
     border: 1px solid var(--border-colour);
     padding: 4px 6px;
 }
 
-    .form-input:focus {
+    .form-input:focus,
+    .form-input-multiline:focus {
         outline: none;
         border-color: var(--link-colour);
     }
@@ -363,7 +373,7 @@ a {
     margin-top: 0.5rem;
 }
 
-/* Results */
+/* Results text */
 .tool-result-list {
     padding-left: 1.1rem;
     margin-bottom: 0.75rem;
@@ -380,7 +390,7 @@ a {
     height: 260px;
 }
 
-/* MOBILE RESPONSIVE TWEAKS */
+/* MOBILE RESPONSIVE TWEAKS for tool layout */
 @media (max-width: 768px) {
     .tool-layout,
     .responsive-stack {
@@ -396,14 +406,16 @@ a {
     }
 }
 
+/* -------------------------------------------------
+   Text formatter layout tweaks
+   ------------------------------------------------- */
 
-/* Text formatter layout tweaks */
 .tool-input,
 .tool-output {
     flex: 1 1 0;
 }
 
-/* Make the two text areas match height nicely */
+/* Matching textareas */
 .form-input-multiline {
     min-height: 220px;
     resize: vertical;
@@ -447,7 +459,7 @@ a {
         padding: 0.4rem 0.9rem;
     }
 
-/* MOBILE TWEAKS */
+/* Mobile tweaks for TF */
 @media (max-width: 768px) {
     .form-input-multiline {
         min-height: 180px;
@@ -458,14 +470,13 @@ a {
     }
 
         .tf-buttons button {
-            flex: 1 1 140px; /* stack nicely but not full-width blobs */
+            flex: 1 1 140px;
         }
 }
 
-
-/* ----------------------------
-   TOURNAMENT BRACKET LAYOUT
-   ---------------------------- */
+/* -------------------------------------------------
+   Tournament bracket layout
+   ------------------------------------------------- */
 
 .bracket-wrapper {
     width: 100%;
@@ -545,7 +556,7 @@ a {
     font-weight: bold;
 }
 
-/* Mobile tweaks */
+/* Mobile tweaks for bracket */
 @media (max-width: 768px) {
     .bracket-round {
         flex: 0 0 180px;

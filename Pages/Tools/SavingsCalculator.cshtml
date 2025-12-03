@@ -1,8 +1,24 @@
 ﻿@page
 @model QuickToolbox.Pages.Tools.SavingsCalculatorModel
+
 @{
-    ViewData["Title"] = "Savings Goal Calculator";
+    ViewData["Title"] = "Savings Calculator – QuickToolkit";
+    ViewData["Description"] =
+        "Work out savings growth over time, including interest and monthly contributions. Ideal for budgeting and financial planning.";
 }
+
+@section HeadMeta {
+    <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org/",
+          "@@type": "Calculator",
+          "name": "Savings Calculator",
+          "description": "Work out savings growth over time, including interest and monthly contributions. Ideal for budgeting and financial planning.",
+          "url": "https://quicktoolkit.co.uk/tools/savingscalculator/"
+        }
+    </script>
+}
+
 
 <section class="tool-page">
     <header class="tool-header">

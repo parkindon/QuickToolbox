@@ -1,8 +1,23 @@
 ﻿@page
 @model QuickToolbox.Pages.Tools.ColourPaletteModel
 @{
-    ViewData["Title"] = "Colour Palette Generator";
+    ViewData["Title"] = "Colour Palette Generator – QuickToolkit";
+    ViewData["Description"] =
+        "Generate harmonious colour palettes, check contrast, and export ready-to-use colour sets for design, branding and UI work.";
 }
+
+@section HeadMeta {
+    <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org/",
+          "@@type": "CreativeWork",
+          "name": "Colour Palette Generator",
+          "description": "Generate harmonious colour palettes, check contrast, and export ready-to-use colour sets for design, branding and UI work.",
+          "url": "https://quicktoolkit.co.uk/tools/colourpalette/"
+        }
+    </script>
+}
+
 
 <section class="tool-page">
     <header class="tool-header">

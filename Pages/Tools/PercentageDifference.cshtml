@@ -1,8 +1,24 @@
 ﻿@page
 @model QuickToolbox.Pages.Tools.PercentageDifferenceModel
+
 @{
-    ViewData["Title"] = "Percentage Difference Calculator";
+    ViewData["Title"] = "Percentage Difference Calculator – QuickToolkit";
+    ViewData["Description"] =
+        "Calculate percentage difference and percentage change quickly and accurately for finance, maths and comparison tasks.";
 }
+
+@section HeadMeta {
+    <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org/",
+          "@@type": "Calculator",
+          "name": "Percentage Difference Calculator",
+          "description": "Calculate percentage difference and percentage change quickly and accurately for finance, maths and comparison tasks.",
+          "url": "https://quicktoolkit.co.uk/tools/percentagedifference/"
+        }
+    </script>
+}
+
 
 <section class="tool-page">
     <header class="tool-header">

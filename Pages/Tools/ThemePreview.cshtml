@@ -1,8 +1,24 @@
 ﻿@page
 @model QuickToolbox.Pages.Tools.ThemePreviewModel
+
 @{
-    ViewData["Title"] = "UI Component Theme Preview";
+    ViewData["Title"] = "UI Theme Preview – QuickToolkit";
+    ViewData["Description"] =
+        "Preview colour themes, typography and UI components in light and dark mode to test design ideas quickly.";
 }
+
+@section HeadMeta {
+    <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org/",
+          "@@type": "CreativeWork",
+          "name": "UI Theme Preview",
+          "description": "Preview colour themes, typography and UI components in light and dark mode to test design ideas quickly.",
+          "url": "https://quicktoolkit.co.uk/tools/themepreview/"
+        }
+    </script>
+}
+
 
 <section class="tool-page">
     <header class="tool-header">

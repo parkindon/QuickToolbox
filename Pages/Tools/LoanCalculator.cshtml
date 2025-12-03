@@ -1,8 +1,24 @@
 ﻿@page
 @model QuickToolbox.Pages.Tools.LoanCalculatorModel
+
 @{
-    ViewData["Title"] = "Loan Repayment Calculator";
+    ViewData["Title"] = "Loan Repayment Calculator – QuickToolkit";
+    ViewData["Description"] =
+        "Estimate monthly loan repayments, total interest and payoff timelines with this fast, accurate loan repayment calculator.";
 }
+
+@section HeadMeta {
+    <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org/",
+          "@@type": "Calculator",
+          "name": "Loan Repayment Calculator",
+          "description": "Estimate monthly loan repayments, total interest and payoff timelines with this fast, accurate loan repayment calculator.",
+          "url": "https://quicktoolkit.co.uk/tools/loancalculator/"
+        }
+    </script>
+}
+
 
 <section class="tool-page">
     <header class="tool-header">

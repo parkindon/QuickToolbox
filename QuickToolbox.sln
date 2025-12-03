@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickToolbox", "QuickToolbox.csproj", "{2B20CEEE-9FCE-435E-B910-C66ADE8384E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticExport", "..\StaticExport\StaticExport.csproj", "{36D4B56F-4237-430E-A6B6-35D12A052183}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{2B20CEEE-9FCE-435E-B910-C66ADE8384E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B20CEEE-9FCE-435E-B910-C66ADE8384E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B20CEEE-9FCE-435E-B910-C66ADE8384E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36D4B56F-4237-430E-A6B6-35D12A052183}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36D4B56F-4237-430E-A6B6-35D12A052183}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36D4B56F-4237-430E-A6B6-35D12A052183}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36D4B56F-4237-430E-A6B6-35D12A052183}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

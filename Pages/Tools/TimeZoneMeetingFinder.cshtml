@@ -1,8 +1,26 @@
 ﻿@page
 @model QuickToolbox.Pages.Tools.TimeZoneMeetingFinderModel
+
 @{
-    ViewData["Title"] = "Time Zone Meeting Finder";
+    ViewData["Title"] = "Time Zone Meeting Finder – QuickToolkit";
+    ViewData["Description"] =
+        "Find the best meeting time across multiple time zones automatically. Converts and compares global times instantly.";
 }
+
+@section HeadMeta {
+    <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org/",
+          "@@type": "SoftwareApplication",
+          "name": "Time Zone Meeting Finder",
+          "applicationCategory": "Productivity",
+          "operatingSystem": "Web",
+          "description": "Find the best meeting time across multiple time zones automatically. Converts and compares global times instantly.",
+          "url": "https://quicktoolkit.co.uk/tools/timezonemeetingfinder/"
+        }
+    </script>
+}
+
 
 <section class="tool-page">
     <header class="tool-header">

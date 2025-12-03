@@ -1,8 +1,26 @@
 ﻿@page
 @model QuickToolbox.Pages.Tools.WordCounterModel
+
 @{
-    ViewData["Title"] = "Word & Character Counter";
+    ViewData["Title"] = "Word Counter – QuickToolkit";
+    ViewData["Description"] =
+        "Count words, characters and sentences instantly. Ideal for writing, editing, SEO and content creation work.";
 }
+
+@section HeadMeta {
+    <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org/",
+          "@@type": "SoftwareApplication",
+          "name": "Word Counter",
+          "applicationCategory": "Utility",
+          "operatingSystem": "Web",
+          "description": "Count words, characters and sentences instantly. Ideal for writing, editing, SEO and content creation work.",
+          "url": "https://quicktoolkit.co.uk/tools/wordcounter/"
+        }
+    </script>
+}
+
 
 <section class="tool-page">
     <header class="tool-header">

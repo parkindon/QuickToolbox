@@ -1,8 +1,26 @@
 ﻿@page
 @model QuickToolbox.Pages.Tools.TextFormatterModel
+
 @{
-    ViewData["Title"] = "Text Cleaner & Formatter";
+    ViewData["Title"] = "Text Formatter – QuickToolkit";
+    ViewData["Description"] =
+        "Format, clean and transform text instantly. Fix spacing, line breaks, casing and more with this simple text formatting tool.";
 }
+
+@section HeadMeta {
+    <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org/",
+          "@@type": "SoftwareApplication",
+          "name": "Text Formatter",
+          "applicationCategory": "Utility",
+          "operatingSystem": "Web",
+          "description": "Format, clean and transform text instantly. Fix spacing, line breaks, casing and more with this simple text formatting tool.",
+          "url": "https://quicktoolkit.co.uk/tools/textformatter/"
+        }
+    </script>
+}
+
 
 <section class="tool-page">
     <header class="tool-header">
