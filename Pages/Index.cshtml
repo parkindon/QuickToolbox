@@ -1,29 +1,61 @@
 ﻿@page
 @model QuickToolbox.Pages.IndexModel
 @{
-    ViewData["Title"] = "QuickToolbox – Online Tools";
+    ViewData["Title"] = "QuickToolkit – Handy online tools for everyday tasks";
 }
 
-<section class="tool-page">
-    <h2>Available Tools</h2>
+<section class="tool-page home-page">
+    <header class="tool-header">
+        <h1>QuickToolkit</h1>
+        <p>
+            A small collection of fast, free tools for text, finance and everyday jobs.
+            No sign-ups, no fluff – just open a tool and get what you need done.
+        </p>
+        <p>
+            Pick a category below to explore the tools, or jump straight into the one you need.
+        </p>
 
-    @if (Model.GroupedTools?.Any() == true)
-    {
-        @foreach (var category in Model.GroupedTools.Keys.OrderBy(k => k))
-        {
-            <section class="tool-category">
-                <h3>@category Tools</h3>
-                <ul>
-                    @foreach (var tool in Model.GroupedTools[category].OrderBy(t => t.Name))
-                    {
-                        <li><a href="@tool.Url">@tool.Name</a></li>
-                    }
-                </ul>
-            </section>
-        }
-    }
-    else
-    {
-        <p>No tools found yet.</p>
-    }
+        <a href="#tool-categories" class="btn btn-primary">
+            Browse all tools
+        </a>
+    </header>
+
+    <section id="tool-categories" class="tool-section">
+        <h2 class="tool-section-title">Browse tools by category</h2>
+        <p>
+            Each category groups together tools that solve similar problems, with a short description
+            so you can quickly spot what you’re looking for.
+        </p>
+
+        <div class="qt-category-grid">
+            @foreach (var cat in Model.Categories)
+            {
+                <article class="tool-section qt-category-card">
+                    <h3 class="tool-section-title">@cat.Name</h3>
+                    <p>@cat.Description</p>
+
+                    <ul class="qt-tool-list">
+                        @foreach (var tool in cat.Tools)
+                        {
+                            <li class="qt-tool-list-item">
+                                <a href="@tool.Url" class="qt-tool-link">
+                                    <span class="qt-tool-name">@tool.Name</span>
+                                    @if (!string.IsNullOrWhiteSpace(tool.Tagline))
+                                    {
+                                        <span class="qt-tool-tagline">@tool.Tagline</span>
+                                    }
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </article>
+            }
+        </div>
+    </section>
 </section>
+
+
+                                    <style>
+   
+
+                                    </style>

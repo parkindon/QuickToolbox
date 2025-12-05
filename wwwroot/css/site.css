@@ -301,7 +301,7 @@ section.tool-page .tool-header {
     margin-bottom: 1.5rem;
     background: var(--header-bg);
     color: var(--header-text);
-    padding: 1rem 0;
+    padding: 1rem 1rem;
     border: 1px solid var(--border-colour);
 }
 
@@ -333,10 +333,6 @@ section.tool-page .tool-stats {
     padding: 1rem;
 }
 
-/* Extra margin if you stack multiple sections vertically */
-.tool-section + .tool-section {
-    margin-top: 1rem;
-}
 
 .tool-section-title {
     margin-top: 0;
@@ -571,4 +567,84 @@ section.tool-page .tool-stats {
         padding: 0.15rem 0.4rem;
         font-size: 0.75rem;
     }
+}
+
+
+/* -------------------------------------------------
+   Landing page (home)
+   ------------------------------------------------- */
+
+/* Hero card at the top of the home page */
+.home-page .tool-header {
+    margin-bottom: 2rem;
+    padding: 1.5rem 1.75rem 1.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-colour);
+    background: var(--header-bg);
+    color: var(--header-text);
+}
+
+    .home-page .tool-header h1 {
+        margin-bottom: 0.75rem;
+    }
+
+    .home-page .tool-header p {
+        max-width: 48rem;
+        margin-bottom: 0.4rem;
+    }
+
+/* Breathing room between hero and categories */
+.home-page #tool-categories.tool-section {
+    margin-top: 1.5rem;
+}
+
+/* Category grid/cards */
+
+.qt-category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.qt-category-card {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Tool list */
+
+.qt-tool-list {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding-left: 0;
+}
+
+.qt-tool-list-item + .qt-tool-list-item {
+    margin-top: 0.5rem;
+}
+
+.qt-tool-link {
+    display: block;
+    text-decoration: none;
+}
+
+/* Match normal body text colours in both themes */
+.qt-tool-name {
+    font-weight: 600;
+    display: block;
+    color: var(--text-colour);
+}
+
+.qt-tool-tagline {
+    font-size: 0.875rem;
+    display: block;
+    color: var(--text-colour);
+    opacity: 0.85;
+}
+
+/* Simple hover – let theme handle colours */
+.qt-tool-link:hover,
+.qt-tool-link:focus-visible {
+    text-decoration: underline;
 }
